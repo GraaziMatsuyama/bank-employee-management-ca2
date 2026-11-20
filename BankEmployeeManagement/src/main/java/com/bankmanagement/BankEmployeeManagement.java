@@ -10,6 +10,7 @@ package com.bankmanagement;
  */
 import com.bankmanagement.model.Employee;
 import com.bankmanagement.model.EmployeeFileReader;
+import com.bankmanagement.algorithms.MergeSort;
 import java.util.ArrayList;
 
 public class BankEmployeeManagement {
@@ -28,10 +29,20 @@ public class BankEmployeeManagement {
         System.out.println("Total employees loaded: "
                 + employees.size());
 
-        System.out.println("\nFirst 5 employees:");
+        if (employees.isEmpty()) {
+            System.out.println("No employees available.");
+            return;
+        }
+        
+        // Recursive Merge Sort
+        MergeSort.sort(employees);
 
-        for (int i = 0; i < Math.min(5, employees.size()); i++) {
-            System.out.println(employees.get(i));
+        System.out.println("\nFIRST 20 EMPLOYEES (A-Z)");
+        System.out.println("================================");
+
+        for (int i = 0; i < Math.min(20, employees.size()); i++) {
+            System.out.println((i + 1) + ". "
+                    + employees.get(i).getName());
         }
 
     }
