@@ -14,6 +14,7 @@ import com.bankmanagement.algorithms.MergeSort;
 import com.bankmanagement.algorithms.BinarySearch;
 import com.bankmanagement.enums.MenuOption;
 import com.bankmanagement.view.MenuView;
+import com.bankmanagement.model.EmployeeValidator;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -99,9 +100,68 @@ public class BankEmployeeManagement {
                     break;
 
                 case ADD_RECORDS:
-                    System.out.println(
-                            "Add Employee - Coming soon.");
-                    break;
+                    System.out.println("\nADD NEW EMPLOYEE");
+
+                     System.out.print("Enter employee full name: ");
+                     String newName = scanner.nextLine().trim();
+
+                         if (!EmployeeValidator.isValidName(newName)) {
+                             System.out.println("Invalid employee name.");
+                             break;
+                         }
+
+                    System.out.print("Enter manager type: ");
+                    String managerType = scanner.nextLine().trim();
+
+                    if (!EmployeeValidator.isValidManagerType(managerType)) {
+                             System.out.println("Invalid manager type.");
+                             break;
+                         }
+
+                    System.out.println("\nAvailable departments:");
+
+                    ArrayList<String> departments = new ArrayList<>();
+
+                        for (Employee employee : employees) {
+                    String dept = employee.getDepartment();
+
+                    boolean exists = false;
+
+                    for (String existing : departments) {
+                    if (existing.equalsIgnoreCase(dept)) {
+                    
+                        exists = true;
+                
+                        break;
+            }
+        }
+
+        if (!exists && !dept.isEmpty()) {
+            departments.add(dept);
+            System.out.println("- " + dept);
+        }
+    }
+
+    System.out.print("\nEnter department: ");
+    String newDepartment = scanner.nextLine().trim();
+
+    if (!EmployeeValidator.departmentExists(
+            newDepartment, employees)) {
+        System.out.println("Invalid department. Choose an existing one.");
+        break;
+    }
+
+    Employee newEmployee =
+            new Employee(newName, managerType, newDepartment);
+
+    employees.add(newEmployee);
+
+    MergeSort.sort(employees);
+
+    System.out.println("\nEmployee added successfully!");
+    System.out.println(newEmployee);
+
+    break;
 
                 case BINARY_TREE:
                     System.out.println(
