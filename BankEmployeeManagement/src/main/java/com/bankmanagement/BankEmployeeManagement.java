@@ -15,6 +15,7 @@ import com.bankmanagement.algorithms.BinarySearch;
 import com.bankmanagement.enums.MenuOption;
 import com.bankmanagement.view.MenuView;
 import com.bankmanagement.model.EmployeeValidator;
+import com.bankmanagement.model.BinaryTree;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -139,34 +140,53 @@ public class BankEmployeeManagement {
         if (!exists && !dept.isEmpty()) {
             departments.add(dept);
             System.out.println("- " + dept);
-        }
-    }
+               }
+             }
 
-    System.out.print("\nEnter department: ");
-    String newDepartment = scanner.nextLine().trim();
+             System.out.print("\nEnter department: ");
+             String newDepartment = scanner.nextLine().trim();
 
-    if (!EmployeeValidator.departmentExists(
-            newDepartment, employees)) {
-        System.out.println("Invalid department. Choose an existing one.");
-        break;
-    }
+            if (!EmployeeValidator.departmentExists(
+                 newDepartment, employees)) {
+             System.out.println("Invalid department. Choose an existing one.");
+                
+                break;
+             }
 
     Employee newEmployee =
             new Employee(newName, managerType, newDepartment);
 
     employees.add(newEmployee);
 
-    MergeSort.sort(employees);
+                MergeSort.sort(employees);
 
-    System.out.println("\nEmployee added successfully!");
-    System.out.println(newEmployee);
+                System.out.println("\nEmployee added successfully!");
+                System.out.println(newEmployee);
 
-    break;
+                        break;
 
                 case BINARY_TREE:
-                    System.out.println(
-                            "Binary Tree - Coming soon.");
-                    break;
+                System.out.println("\nEMPLOYEE BINARY TREE");
+                System.out.println("================================");
+
+                   BinaryTree tree = new BinaryTree();
+
+                  int insertedRecords = 0;
+
+                  for (Employee employee : employees) {
+                         tree.insert(employee);
+                        insertedRecords++;
+                      }
+
+                     System.out.println("Binary tree created successfully!");
+                System.out.println("Total records inserted: " + insertedRecords);
+
+                 if (tree.getRoot() != null) {
+                 System.out.println("Root employee:");
+                 System.out.println(tree.getRoot().getEmployee());
+               }
+                    
+    break;
 
                 case EXIT:
                     System.out.println("Goodbye!");
