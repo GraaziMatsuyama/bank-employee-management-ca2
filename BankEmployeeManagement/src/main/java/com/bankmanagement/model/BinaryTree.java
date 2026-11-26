@@ -56,5 +56,78 @@ public class BinaryTree {
     public TreeNode getRoot() {
         return root;
     }
-    
+            
+            
+     public void levelOrderTraversal() {
+
+        if (root == null) {
+         System.out.println("The tree is empty.");
+            
+            return;
+    }   
+
+           Queue<TreeNode> queue = new LinkedList<>();
+            queue.add(root);
+
+            int level = 0;
+
+              while (!queue.isEmpty()) {
+
+              int levelSize = queue.size();
+
+        System.out.println("\nLEVEL " + level);
+
+        for (int i = 0; i < levelSize; i++) {
+
+            TreeNode current = queue.poll();
+
+            System.out.println(current.getEmployee());
+
+            if (current.getLeft() != null) {
+                queue.add(current.getLeft());
+            }
+
+            if (current.getRight() != null) {
+                queue.add(current.getRight());
+            }
+          }
+
+        level++;
+        }
+    }
+     
+                
+        public int getHeight() {
+            return calculateHeight(root);
+            
+            }
+
+            private int calculateHeight(TreeNode node) {
+
+                if (node == null) {
+               return -1;
+    }
+
+            int leftHeight = calculateHeight(node.getLeft());
+            int rightHeight = calculateHeight(node.getRight());
+
+                return 1 + Math.max(leftHeight, rightHeight);
+        }
+
+            
+        public int getNodeCount() {
+            return countNodes(root);
+        }
+
+        private int countNodes(TreeNode node) {
+
+            if (node == null) {
+                return 0;
+    }
+
+            return 1
+             + countNodes(node.getLeft())
+             + countNodes(node.getRight());
+        }
+
 }

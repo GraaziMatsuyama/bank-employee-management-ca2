@@ -166,27 +166,30 @@ public class BankEmployeeManagement {
                         break;
 
                 case BINARY_TREE:
+                    
                 System.out.println("\nEMPLOYEE BINARY TREE");
                 System.out.println("================================");
 
                    BinaryTree tree = new BinaryTree();
+                for (Employee employee : employees) {
+                        tree.insert(employee);
+                    }
 
-                  int insertedRecords = 0;
+                System.out.println("Binary tree created successfully!");
 
-                  for (Employee employee : employees) {
-                         tree.insert(employee);
-                        insertedRecords++;
-                      }
+                System.out.println("\nEMPLOYEE HIERARCHY");
+                System.out.println("================================");
 
-                     System.out.println("Binary tree created successfully!");
-                System.out.println("Total records inserted: " + insertedRecords);
+                    tree.levelOrderTraversal();
 
-                 if (tree.getRoot() != null) {
-                 System.out.println("Root employee:");
-                 System.out.println(tree.getRoot().getEmployee());
-               }
+                System.out.println("\nTREE STATISTICS");
+                System.out.println("================================");
+
+                System.out.println("Total nodes: " + tree.getNodeCount());
+                System.out.println("Tree height: " + tree.getHeight());
+                System.out.println("Total levels: " + (tree.getHeight() + 1));
                     
-    break;
+                         break;
 
                 case EXIT:
                     System.out.println("Goodbye!");
