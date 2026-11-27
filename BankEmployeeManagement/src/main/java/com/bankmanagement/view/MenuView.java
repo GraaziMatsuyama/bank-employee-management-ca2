@@ -95,6 +95,25 @@ public class MenuView {
         System.out.println("Tree height: " + tree.getHeight());
         System.out.println("Total levels: " + (tree.getHeight() + 1));
     }
+    public static void displayTreeHierarchy(
+            ArrayList<ArrayList<Employee>> levels) {
 
+        System.out.println("\nEMPLOYEE HIERARCHY");
+        System.out.println("================================");
+
+        if (levels.isEmpty()) {
+            System.out.println("The tree is empty.");
+            return;
+        }
+
+        for (int i = 0; i < levels.size(); i++) {
+
+            System.out.println("\nLEVEL " + i);
+
+            for (Employee employee : levels.get(i)) {
+                System.out.println(employee);
+            }
+        }
+    }
 
 }

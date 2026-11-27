@@ -181,25 +181,24 @@ import java.util.Scanner;
     }
        
        
-    private void displayBinaryTree() {
+        private void displayBinaryTree() {
 
-        MenuView.displayMessage("\nEMPLOYEE BINARY TREE");
-        MenuView.displayMessage("================================");
+            MenuView.displayMessage("\nEMPLOYEE BINARY TREE");
+            MenuView.displayMessage("================================");
 
-     BinaryTree tree = new BinaryTree();
+            BinaryTree tree = new BinaryTree();
 
-        for (Employee employee : employees) {
-            tree.insert(employee);
-         }
+            for (Employee employee : employees) {
+                tree.insert(employee);
+            }
 
-    MenuView.displayMessage("Binary tree created successfully!");
+            MenuView.displayMessage(
+                    "Binary tree created successfully!");
 
-    MenuView.displayMessage("\nEMPLOYEE HIERARCHY");
-    MenuView.displayMessage("================================");
+            MenuView.displayTreeHierarchy(
+                    tree.levelOrderTraversal());
 
-         tree.levelOrderTraversal();
-
-    MenuView.displayTreeStatistics(tree);
-}
+            MenuView.displayTreeStatistics(tree);
+        }
 
 }

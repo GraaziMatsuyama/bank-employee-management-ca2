@@ -12,6 +12,8 @@ package com.bankmanagement.model;
 import java.util.Queue;
 import java.util.LinkedList;
 
+import java.util.ArrayList;
+
 
 public class BinaryTree {
     
@@ -58,43 +60,46 @@ public class BinaryTree {
     }
             
             
-     public void levelOrderTraversal() {
+     public ArrayList<ArrayList<Employee>> levelOrderTraversal() {
+         
+             ArrayList<ArrayList<Employee>> levels = new ArrayList<>();
 
         if (root == null) {
-         System.out.println("The tree is empty.");
+          return levels;
             
-            return;
     }   
 
            Queue<TreeNode> queue = new LinkedList<>();
             queue.add(root);
 
-            int level = 0;
 
               while (!queue.isEmpty()) {
 
               int levelSize = queue.size();
 
-        System.out.println("\nLEVEL " + level);
+        ArrayList<Employee> currentLevel = new ArrayList<>();
 
-        for (int i = 0; i < levelSize; i++) {
+                for (int i = 0; i < levelSize; i++) {
 
-            TreeNode current = queue.poll();
+                    TreeNode current = queue.poll();
 
-            System.out.println(current.getEmployee());
+                    currentLevel.add(current.getEmployee());
 
-            if (current.getLeft() != null) {
-                queue.add(current.getLeft());
+                    if (current.getLeft() != null) {
+                        queue.add(current.getLeft());
+                    }
+
+                    if (current.getRight() != null) {
+                        queue.add(current.getRight());
+                    }
+                }
+
+                levels.add(currentLevel);
             }
 
-            if (current.getRight() != null) {
-                queue.add(current.getRight());
-            }
-          }
-
-        level++;
+            return levels;
         }
-    }
+    
      
                 
         public int getHeight() {
