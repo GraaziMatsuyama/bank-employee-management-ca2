@@ -115,5 +115,33 @@ public class MenuView {
             }
         }
     }
+    
+
+    public static void displayManagerTypes(
+            ArrayList<String> managerTypes) {
+
+        System.out.println("\nAvailable manager types:");
+
+        for (String managerType : managerTypes) {
+            System.out.println("- " + managerType);
+        }
+    }
+
+    public static void displayAllNewEmployees(
+            ArrayList<Employee> newEmployees) {
+
+        System.out.println("\nALL NEWLY ADDED EMPLOYEES");
+        System.out.println("================================");
+
+        for (int i = 0; i < newEmployees.size(); i++) {
+
+            System.out.println((i + 1) + ". "
+                    + newEmployees.get(i));
+        }
+
+        System.out.println("\nTotal new employees: "
+                + newEmployees.size());
+    }
+
 
 }

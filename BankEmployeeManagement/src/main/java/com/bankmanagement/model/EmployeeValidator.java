@@ -13,24 +13,47 @@ import java.util.ArrayList;
 
 public class EmployeeValidator {
     
-public static boolean isValidName(String name) {
+ public static boolean isValidName(String name) {
+
         return name != null
                 && !name.trim().isEmpty()
-                && name.trim().matches("[\\p{L} .'-]+");
+                && name.trim().matches("[\\p{L} .'-]+")
+                && name.matches(".*\\p{L}.*");
     }
 
-    public static boolean isValidManagerType(String managerType) {
-        return managerType != null
-                && !managerType.trim().isEmpty();
+    public static boolean isValidManagerType(
+            String managerType,
+            ArrayList<Employee> employees) {
+
+        if (managerType == null || managerType.trim().isEmpty()) {
+            return false;
+        }
+
+        for (Employee employee : employees) {
+
+            if (employee.getManagerType().equalsIgnoreCase(
+                    managerType.trim())) {
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static boolean departmentExists(
             String department,
             ArrayList<Employee> employees) {
 
+        if (department == null || department.trim().isEmpty()) {
+            return false;
+        }
+
         for (Employee employee : employees) {
-            if (employee.getDepartment()
-                    .equalsIgnoreCase(department.trim())) {
+
+            if (employee.getDepartment().equalsIgnoreCase(
+                    department.trim())) {
+
                 return true;
             }
         }

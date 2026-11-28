@@ -25,11 +25,13 @@ import java.util.Scanner;
     public class BankController {
     
         private final ArrayList<Employee> employees;
+        private final ArrayList<Employee> newEmployees;
         private final Scanner scanner;
 
         public BankController() {
 
          scanner = new Scanner(System.in);
+         newEmployees = new ArrayList<>();
 
         employees = EmployeeFileReader.readEmployees(
                 "data/Applicants_Form.txt");
@@ -128,14 +130,38 @@ import java.util.Scanner;
             return;
      }
 
-            MenuView.displayPrompt("Enter manager type: ");
-                String managerType = scanner.nextLine().trim();
+        ArrayList<String> managerTypes = new ArrayList<>();
 
-         if (!EmployeeValidator.isValidManagerType(managerType)) {
-                 MenuView.displayMessage("Invalid manager type.");
-        
-                 return;
-    }
+        for (Employee employee : employees) {
+
+            String type = employee.getManagerType();
+            boolean exists = false;
+
+            for (String existing : managerTypes) {
+                if (existing.equalsIgnoreCase(type)) {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (!exists && !type.isEmpty()) {
+                managerTypes.add(type);
+            }
+        }
+
+        MenuView.displayManagerTypes(managerTypes);
+
+        MenuView.displayPrompt("\nEnter manager type: ");
+        String managerType = scanner.nextLine().trim();
+
+        if (!EmployeeValidator.isValidManagerType(
+                managerType, employees)) {
+
+            MenuView.displayMessage(
+                    "Invalid manager type. Choose an existing one.");
+            return;
+        }
+
 
     ArrayList<String> departments = new ArrayList<>();
 
@@ -174,10 +200,12 @@ import java.util.Scanner;
             new Employee(newName, managerType, newDepartment);
 
         employees.add(newEmployee);
+        newEmployees.add(newEmployee);
 
-     MergeSort.sort(employees);
+        MergeSort.sort(employees);
 
-     MenuView.displayNewEmployee(newEmployee);
+        MenuView.displayNewEmployee(newEmployee);
+        MenuView.displayAllNewEmployees(newEmployees);
     }
        
        
